@@ -1,0 +1,263 @@
+@model List<Bookmark.Models.BookmarkItem>
+
+
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ZenMark | Digital Curation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed-variant": "#7b2f00",
+                    "secondary-fixed": "#6ffbbe",
+                    "inverse-primary": "#c3c0ff",
+                    "primary": "#3525cd",
+                    "outline": "#777587",
+                    "inverse-on-surface": "#eaf1ff",
+                    "primary-container": "#4f46e5",
+                    "tertiary": "#7e3000",
+                    "surface-bright": "#f8f9ff",
+                    "on-tertiary-fixed": "#351000",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "outline-variant": "#c7c4d8",
+                    "on-secondary-container": "#00714d",
+                    "surface-variant": "#d3e4fe",
+                    "surface-dim": "#cbdbf5",
+                    "secondary-container": "#6cf8bb",
+                    "on-surface-variant": "#464555",
+                    "on-error-container": "#93000a",
+                    "tertiary-container": "#a44100",
+                    "on-error": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "on-tertiary-container": "#ffd2be",
+                    "surface-container": "#e5eeff",
+                    "on-primary-fixed": "#0f0069",
+                    "background": "#f8f9ff",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#e2dfff",
+                    "secondary-fixed-dim": "#4edea3",
+                    "surface-container-low": "#eff4ff",
+                    "on-surface": "#0b1c30",
+                    "on-primary": "#ffffff",
+                    "on-primary-container": "#dad7ff",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "surface": "#f8f9ff",
+                    "secondary": "#006c49",
+                    "on-secondary-fixed-variant": "#005236",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb695",
+                    "tertiary-fixed": "#ffdbcc",
+                    "surface-container-high": "#dce9ff",
+                    "inverse-surface": "#213145",
+                    "surface-tint": "#4d44e3",
+                    "on-secondary-fixed": "#002113",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-background": "#0b1c30"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "container-max-width": "1280px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "40px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"]
+            },
+            "fontSize": {
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "1", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .filled-icon {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bookmark-card:hover .action-bar {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased min-h-screen flex flex-col">
+<!-- TopNavBar Component -->
+<header class="bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline shadow-sm docked full-width top-0 sticky z-50">
+<div class="flex justify-between items-center w-full h-16 px-margin-mobile md:px-margin-desktop max-w-container-max-width mx-auto">
+<div class="flex items-center gap-8">
+<span class="text-headline-md font-headline-md font-bold text-primary dark:text-inverse-primary">ZenMark</span>
+<nav class="hidden md:flex gap-6">
+<a class="text-primary dark:text-inverse-primary font-bold border-b-2 border-primary dark:border-inverse-primary pb-1 font-label-md text-label-md transition-all duration-200" href="#">Library</a>
+
+</nav>
+</div>
+<div class="flex items-center gap-gutter">
+
+
+<div class="flex items-center gap-4">
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-xl font-label-md text-label-md hover:shadow-lg active:scale-95 transform transition-all duration-150">New Bookmark</button>
+<div class="flex items-center gap-2">
+
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow max-w-container-max-width mx-auto w-full px-margin-mobile md:px-margin-desktop py-10">
+<!-- Dashboard Toolbar -->
+<section class="mb-10 space-y-6">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="space-y-1">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Digital Archive</h1>
+<p class="text-on-surface-variant font-body-md">Manage your curated knowledge base.</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center bg-white border border-outline-variant rounded-xl px-3 py-2 text-label-md">
+<span class="text-outline-variant mr-2">Sort by:</span>
+<select class="bg-transparent border-none focus:ring-0 p-0 text-primary font-bold cursor-pointer">
+<option>Newest First</option>
+<option>A-Z</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Filters -->
+<div class="flex flex-wrap items-center gap-3">
+<button class="px-5 py-2 rounded-full bg-primary text-on-primary font-label-md transition-all">All</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-low border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary font-label-md transition-all">Work</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-low border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary font-label-md transition-all">Personal</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-low border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary font-label-md transition-all">Inspiration</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-low border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary font-label-md transition-all">Tech</button>
+</div>
+</section>
+
+
+
+<!-- Bookmark Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter" id="bookmark-grid">
+
+
+
+
+<!-- Card 1 -->
+
+
+@foreach(BookmarkItem bookmark in Model) {
+
+<article class="bookmark-card group relative flex flex-col bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+<div class="relative aspect-video w-full overflow-hidden rounded-t-xl">
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist screenshot of documentation software featuring an indigo and white color scheme. The visual style is modern SaaS with clear typography and structured code snippets. The lighting is soft and ambient, suggesting a professional developer environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEYj4ro0IM7UV3xDpa5zy8iDHYSfV3QhBPjva2yEA4ZfAlnU-ydmlJKaisLjHzkDauYH4_XJpfKUVvi79MhTljI1yHvWuEqrIOwC5oZDpl1qiGpga7Jim5CqCpeGjmM8Fhjznr7uE4jZeVc4Ivzeew2asawEtucpYyr2SIx-f6Ntl2SnmtAB9CM6vzPlcvN0mnVugwsyeJxjKnoiVeK3zQ7LLs5QgbFYVixOG4EtgZ9wKTvBWe4nTZ27npJchvzYGRqIHiP9uKbhM"/>
+<div class="action-bar opacity-0 translate-y-2 absolute bottom-3 right-3 flex gap-2 transition-all duration-200">
+<button class="p-2 bg-white/90 backdrop-blur-md rounded-lg shadow-sm hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-2 bg-white/90 backdrop-blur-md rounded-lg shadow-sm hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-2">
+<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container rounded font-label-sm text-label-sm">@bookmark.Category</span>
+<button class="favorite-toggle hover:scale-110 transition-transform">
+<span class="material-symbols-outlined filled-icon text-primary">star</span>
+</button>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1 group-hover:text-primary transition-colors">@bookmark.Title</h3>
+<p class="text-primary font-label-md text-label-md mb-3">@bookmark.Url</p>
+<p class="text-on-surface-variant text-body-sm font-body-sm line-clamp-2">@bookmark.Description</p>
+</div>
+</article>
+
+}
+
+
+</div>
+<!-- Empty State Hidden by default -->
+<div class="hidden flex flex-col items-center justify-center py-24 text-center max-w-md mx-auto" id="empty-state">
+<div class="w-32 h-32 bg-surface-container-low rounded-full flex items-center justify-center mb-8">
+<span class="material-symbols-outlined text-[64px] text-outline-variant">bookmark_add</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-2">Quiet in the archive</h2>
+<p class="text-on-surface-variant font-body-md mb-8">Start your curation journey by adding your first bookmark. Everything you love, organized in one place.</p>
+<button class="bg-primary text-on-primary px-8 py-3 rounded-xl font-label-md text-label-md hover:shadow-lg transition-shadow">Add Your First Bookmark</button>
+</div>
+</main>
+
+
+
+
+
+
+
+
+
+
+<script>
+        // Micro-interactions for favorite star
+        document.querySelectorAll('.favorite-toggle').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const icon = this.querySelector('.material-symbols-outlined');
+                const isFilled = icon.classList.contains('filled-icon');
+                
+                if (isFilled) {
+                    icon.classList.remove('filled-icon', 'text-primary');
+                    icon.classList.add('text-outline-variant');
+                } else {
+                    icon.classList.add('filled-icon', 'text-primary');
+                    icon.classList.remove('text-outline-variant');
+                }
+            });
+        });
+
+        // Toggle empty state for demo purposes (can be triggered by searching nothing or deleting items)
+        function toggleEmptyState(isEmpty) {
+            const grid = document.getElementById('bookmark-grid');
+            const empty = document.getElementById('empty-state');
+            if (isEmpty) {
+                grid.classList.add('hidden');
+                empty.classList.remove('hidden');
+            } else {
+                grid.classList.remove('hidden');
+                empty.classList.add('hidden');
+            }
+        }
+    </script>
+</body></html>
