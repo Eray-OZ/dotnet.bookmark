@@ -28,11 +28,7 @@ New Bookmark
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter" id="bookmark-grid">
 @foreach(BookmarkItem bookmark in Model) {
 <article class="bookmark-card group relative flex flex-col bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300">
-<div class="relative aspect-video w-full overflow-hidden rounded-t-xl">
-<img class="w-full h-full object-cover" data-alt="A clean, minimalist screenshot of documentation software featuring an indigo and white color scheme. The visual style is modern SaaS with clear typography and structured code snippets. The lighting is soft and ambient, suggesting a professional developer environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEYj4ro0IM7UV3xDpa5zy8iDHYSfV3QhBPjva2yEA4ZfAlnU-ydmlJKaisLjHzkDauYH4_XJpfKUVvi79MhTljI1yHvWuEqrIOwC5oZDpl1qiGpga7Jim5CqCpeGjmM8Fhjznr7uE4jZeVc4Ivzeew2asawEtucpYyr2SIx-f6Ntl2SnmtAB9CM6vzPlcvN0mnVugwsyeJxjKnoiVeK3zQ7LLs5QgbFYVixOG4EtgZ9wKTvBWe4nTZ27npJchvzYGRqIHiP9uKbhM"/>
-<div class="action-bar opacity-0 translate-y-2 absolute bottom-3 right-3 flex gap-2 transition-all duration-200">
-</div>
-</div>
+
 <div class="p-5 flex flex-col flex-grow">
 <div class="flex justify-between items-start mb-2">
 <span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container rounded font-label-sm text-label-sm">@bookmark.Category</span>
