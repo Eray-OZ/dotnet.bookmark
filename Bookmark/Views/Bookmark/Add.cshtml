@@ -2,7 +2,7 @@
 
 
 
-<body class="bg-background text-on-background font-body-md min-h-screen overflow-hidden">
+<body class="dark bg-background text-on-background font-body-md min-h-screen overflow-hidden">
 
 <!-- Background Content (Simulated Dashboard) -->
 <main class="max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop py-8 opacity-40 select-none pointer-events-none">
@@ -71,7 +71,7 @@ method="post"
 <!-- Title Field -->
 <div class="space-y-2">
 <label class="font-label-md text-label-md text-on-surface-variant block" for="bookmark-title">Title</label>
-<input asp-for="Title" class="w-full bg-surface-bright border border-outline-variant rounded-xl px-4 py-3 text-body-md font-body-md input-focus-ring transition-all placeholder:text-outline-variant" id="bookmark-title" placeholder="e.g., Design Inspiration 2024" type="text"/>
+<input asp-for="Title" class="w-full bg-surface-bright dark:bg-[#1a202c] border border-outline-variant dark:border-[#4a4758] rounded-xl px-4 py-3 text-body-md font-body-md text-on-surface dark:text-[#e0e0e0] input-focus-ring transition-all placeholder:text-outline-variant dark:placeholder:text-[#4a4758]" id="bookmark-title" placeholder="e.g., Design Inspiration 2024" type="text"/>
 </div>
 
 
@@ -79,7 +79,7 @@ method="post"
 <div class="space-y-2">
 <label class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1" for="bookmark-url">URL<span class="text-error">*</span>
 </label>
-<input asp-for="Url" class="w-full bg-surface-bright border border-outline-variant rounded-xl px-4 py-3 text-body-md font-body-md input-focus-ring transition-all placeholder:text-outline-variant" id="bookmark-url" placeholder="https://example.com" required="" type="url"/>
+<input asp-for="Url" class="w-full bg-surface-bright dark:bg-[#1a202c] border border-outline-variant dark:border-[#4a4758] rounded-xl px-4 py-3 text-body-md font-body-md text-on-surface dark:text-[#e0e0e0] input-focus-ring transition-all placeholder:text-outline-variant dark:placeholder:text-[#4a4758]" id="bookmark-url" placeholder="https://example.com" required="" type="url"/>
 <p class="hidden text-error text-label-sm font-label-sm mt-1">Please enter a valid website address.</p>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -89,7 +89,7 @@ method="post"
 <div class="space-y-2">
 <label class="font-label-md text-label-md text-on-surface-variant block" for="bookmark-category">Category</label>
 <div class="relative">
-<select asp-for="Category" class="w-full bg-surface-bright border border-outline-variant rounded-xl px-4 py-3 pr-12 text-body-md font-body-md input-focus-ring transition-all cursor-pointer" id="bookmark-category" style="appearance: none; -webkit-appearance: none; -moz-appearance: none; background-image: none;">
+<select asp-for="Category" class="w-full bg-surface-bright dark:bg-[#1a202c] border border-outline-variant dark:border-[#4a4758] rounded-xl px-4 py-3 pr-12 text-body-md font-body-md text-on-surface dark:text-[#e0e0e0] input-focus-ring transition-all cursor-pointer" id="bookmark-category" style="appearance: none; -webkit-appearance: none; -moz-appearance: none; background-image: none;">
 <option value="general">General</option>
 <option value="design">Design</option>
 <option value="tech">Technology</option>
@@ -105,10 +105,10 @@ method="post"
 <!-- Favorite Toggle -->
 <div class="space-y-2">
 <label class="font-label-md text-label-md text-on-surface-variant block">Quick Access</label>
-<label class="flex items-center gap-3 h-[50px] cursor-pointer bg-surface-bright border border-outline-variant rounded-xl px-4 transition-colors hover:border-primary-container">
-<input asp-for="Favorite" class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary-container" id="bookmark-favorite" type="checkbox"/>
-<span class="flex items-center gap-2 text-body-md font-body-md text-on-surface">
-<span class="material-symbols-outlined text-tertiary-container" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<label class="flex items-center gap-3 h-[50px] cursor-pointer bg-surface-bright dark:bg-[#1a202c] border border-outline-variant dark:border-[#4a4758] rounded-xl px-4 transition-colors hover:border-primary-container dark:hover:border-[#b8c5ff]">
+<input asp-for="Favorite" class="w-5 h-5 rounded border-outline-variant dark:border-[#4a4758] text-primary dark:text-[#b8c5ff] focus:ring-primary-container dark:focus:ring-[#b8c5ff]" id="bookmark-favorite" type="checkbox"/>
+<span class="flex items-center gap-2 text-body-md font-body-md text-on-surface dark:text-[#e0e0e0]">
+<span class="material-symbols-outlined text-tertiary-container dark:text-[#ffb695]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
 Favorite</span>
 </label>
 </div>
@@ -118,7 +118,7 @@ Favorite</span>
 <!-- Description Field -->
 <div class="space-y-2">
 <label class="font-label-md text-label-md text-on-surface-variant block" for="bookmark-description">Description</label>
-<textarea asp-for="Description" class="w-full bg-surface-bright border border-outline-variant rounded-xl px-4 py-3 text-body-md font-body-md input-focus-ring transition-all placeholder:text-outline-variant resize-none" id="bookmark-description" placeholder="Add a brief note about this bookmark..." rows="3"></textarea>
+<textarea asp-for="Description" class="w-full bg-surface-bright dark:bg-[#1a202c] border border-outline-variant dark:border-[#4a4758] rounded-xl px-4 py-3 text-body-md font-body-md text-on-surface dark:text-[#e0e0e0] input-focus-ring transition-all placeholder:text-outline-variant dark:placeholder:text-[#4a4758] resize-none" id="bookmark-description" placeholder="Add a brief note about this bookmark..." rows="3"></textarea>
 </div>
 
 

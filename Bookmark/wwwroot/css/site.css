@@ -29,3 +29,33 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+/* Dark Mode Input Styling */
+.dark input[type="text"],
+.dark input[type="url"],
+.dark input[type="email"],
+.dark input[type="password"],
+.dark select,
+.dark textarea {
+  background-color: #1a202c !important;
+  color: #e0e0e0 !important;
+  border-color: #4a4758 !important;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #4a4758 !important;
+}
+
+.dark input:focus,
+.dark select:focus,
+.dark textarea:focus {
+  border-color: #b8c5ff !important;
+  box-shadow: 0 0 0 3px rgba(184, 197, 255, 0.2) !important;
+}
+
+.dark input[type="checkbox"] {
+  background-color: #1a202c !important;
+  border-color: #4a4758 !important;
+  accent-color: #b8c5ff !important;
+}

@@ -14,53 +14,55 @@
         theme: {
           extend: {
             "colors": {
+                    "background": "var(--color-background)",
+                    "surface": "var(--color-surface)",
+                    "surface-container-lowest": "var(--color-surface-container-lowest)",
+                    "surface-container-low": "var(--color-surface-container-low)",
+                    "surface-container": "var(--color-surface-container)",
+                    "surface-container-high": "var(--color-surface-container-high)",
+                    "surface-container-highest": "var(--color-surface-container-highest)",
+                    "surface-variant": "var(--color-surface-variant)",
+                    "on-surface": "var(--color-on-surface)",
+                    "on-surface-variant": "var(--color-on-surface-variant)",
+                    "primary": "var(--color-primary)",
+                    "on-primary": "var(--color-on-primary)",
+                    "primary-container": "var(--color-primary-container)",
+                    "on-primary-container": "var(--color-on-primary-container)",
+                    "secondary": "var(--color-secondary)",
+                    "on-secondary": "var(--color-on-secondary)",
+                    "secondary-container": "var(--color-secondary-container)",
+                    "on-secondary-container": "var(--color-on-secondary-container)",
+                    "tertiary": "var(--color-tertiary)",
+                    "on-tertiary": "var(--color-on-tertiary)",
+                    "outline": "var(--color-outline)",
+                    "outline-variant": "var(--color-outline-variant)",
                     "on-tertiary-fixed-variant": "#7b2f00",
                     "secondary-fixed": "#6ffbbe",
                     "inverse-primary": "#c3c0ff",
-                    "primary": "#3525cd",
-                    "outline": "#777587",
                     "inverse-on-surface": "#eaf1ff",
-                    "primary-container": "#4f46e5",
-                    "tertiary": "#7e3000",
-                    "surface-bright": "#f8f9ff",
                     "on-tertiary-fixed": "#351000",
                     "primary-fixed-dim": "#c3c0ff",
-                    "outline-variant": "#c7c4d8",
-                    "on-secondary-container": "#00714d",
-                    "surface-variant": "#d3e4fe",
+                    "on-secondary-container": "var(--color-on-secondary-container)",
                     "surface-dim": "#cbdbf5",
-                    "secondary-container": "#6cf8bb",
-                    "on-surface-variant": "#464555",
                     "on-error-container": "#93000a",
                     "tertiary-container": "#a44100",
                     "on-error": "#ffffff",
-                    "on-tertiary": "#ffffff",
                     "error-container": "#ffdad6",
                     "error": "#ba1a1a",
                     "on-tertiary-container": "#ffd2be",
-                    "surface-container": "#e5eeff",
                     "on-primary-fixed": "#0f0069",
-                    "background": "#f8f9ff",
-                    "on-secondary": "#ffffff",
+                    "on-secondary": "var(--color-on-secondary)",
                     "primary-fixed": "#e2dfff",
                     "secondary-fixed-dim": "#4edea3",
-                    "surface-container-low": "#eff4ff",
-                    "on-surface": "#0b1c30",
-                    "on-primary": "#ffffff",
-                    "on-primary-container": "#dad7ff",
+                    "on-primary": "var(--color-on-primary)",
                     "on-primary-fixed-variant": "#3323cc",
-                    "surface": "#f8f9ff",
-                    "secondary": "#006c49",
                     "on-secondary-fixed-variant": "#005236",
-                    "surface-container-lowest": "#ffffff",
                     "tertiary-fixed-dim": "#ffb695",
                     "tertiary-fixed": "#ffdbcc",
-                    "surface-container-high": "#dce9ff",
                     "inverse-surface": "#213145",
                     "surface-tint": "#4d44e3",
                     "on-secondary-fixed": "#002113",
-                    "surface-container-highest": "#d3e4fe",
-                    "on-background": "#0b1c30"
+                    "on-background": "var(--color-on-surface)"
             },
             "borderRadius": {
                     "DEFAULT": "0.25rem",
@@ -102,6 +104,79 @@
       }
     </script>
 <style>
+        :root {
+            --color-background: #f8f9ff;
+            --color-surface: #f8f9ff;
+            --color-surface-container-lowest: #ffffff;
+            --color-surface-container-low: #eff4ff;
+            --color-surface-container: #e5eeff;
+            --color-surface-container-high: #dce9ff;
+            --color-surface-container-highest: #d3e4fe;
+            --color-surface-variant: #d3e4fe;
+            --color-surface-bright: #f8f9ff;
+            --color-on-surface: #0b1c30;
+            --color-on-surface-variant: #464555;
+            --color-primary: #3525cd;
+            --color-on-primary: #ffffff;
+            --color-primary-container: #4f46e5;
+            --color-on-primary-container: #dad7ff;
+            --color-secondary: #006c49;
+            --color-on-secondary: #ffffff;
+            --color-secondary-container: #6cf8bb;
+            --color-on-secondary-container: #00714d;
+            --color-tertiary: #7e3000;
+            --color-on-tertiary: #ffffff;
+            --color-outline: #777587;
+            --color-outline-variant: #c7c4d8;
+        }
+
+        .dark {
+            --color-background: #0f1419;
+            --color-surface: #121212;
+            --color-surface-container-lowest: #0a0e14;
+            --color-surface-container-low: #1a202c;
+            --color-surface-container: #202530;
+            --color-surface-container-high: #2a3038;
+            --color-surface-container-highest: #323844;
+            --color-surface-variant: #3a4556;
+            --color-surface-bright: #1a202c;
+            --color-on-surface: #e0e0e0;
+            --color-on-surface-variant: #b0aac5;
+            --color-primary: #b8c5ff;
+            --color-on-primary: #2d0066;
+            --color-primary-container: #5856d6;
+            --color-on-primary-container: #0f0069;
+            --color-secondary: #6cf8bb;
+            --color-on-secondary: #000000;
+            --color-secondary-container: #004d36;
+            --color-on-secondary-container: #8cffda;
+            --color-tertiary: #ffb695;
+            --color-on-tertiary: #3a0f00;
+            --color-outline: #b0aac5;
+            --color-outline-variant: #4a4758;
+        }
+
+        /* Input and Form Styling */
+        input, select, textarea {
+            background-color: var(--color-surface-bright);
+            color: var(--color-on-surface);
+            border-color: var(--color-outline-variant);
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: var(--color-outline-variant);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--color-primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(184, 197, 255, 0.1);
+        }
+
+        .dark input:focus, .dark select:focus, .dark textarea:focus {
+            box-shadow: 0 0 0 3px rgba(184, 197, 255, 0.2);
+        }
+
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
@@ -115,11 +190,7 @@
     </style>
 </head>
 
-
-
-
-
-<body>
+<body class="dark bg-background">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         </nav>
