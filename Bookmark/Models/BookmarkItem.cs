@@ -5,7 +5,7 @@ namespace Bookmark.Models
         public int Id { get; set; }
         public required string Title { get; set; }
         public required string Url { get; set; }
-        public required string Category { get; set; }
+        public required string Category { get; set; } = "All";
         public bool Favorite { get; set; }
         public DateTime CreatedAt { get; set; }
         public string? Description { get; set; }

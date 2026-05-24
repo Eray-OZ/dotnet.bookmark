@@ -5,17 +5,15 @@
 
 
 <body class="dark bg-background text-on-surface font-body-md antialiased min-h-screen flex flex-col">
-<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-6">
+<div class="flex items-center gap-6 px-margin-mobile md:px-margin-desktop pt-16 pb-6">
 
 <h1 class="font-headline-lg text-headline-lg text-on-surface">Favorites</h1>
-<div class="flex items-center gap-8">
-<button onclick="window.location.href='/Bookmark/Add'" class="bg-primary text-on-primary px-6 py-2.5 rounded-xl font-label-md text-label-md hover:shadow-lg active:scale-95 transform transition-all duration-150 flex items-center gap-2">
-<span class="material-symbols-outlined">add</span>
-New Bookmark
+<div class="flex items-center gap-4">
+<button onclick="window.location.href='/Bookmark/Add'" class="bg-primary text-on-primary h-11 w-11 rounded-xl hover:shadow-lg active:scale-95 transform transition-all duration-150 flex items-center justify-center" title="New Bookmark">
+<span class="material-symbols-outlined text-2xl">add</span>
 </button>
-<button onclick="window.location.href='/Bookmark/List'" class="hover:scale-125 transition-transform flex items-center gap-2" title="Back to Bookmarks">
+<button onclick="window.location.href='/Bookmark/List'" class="hover:scale-110 hover:bg-surface-container active:scale-95 transition-all rounded-xl flex items-center justify-center h-11 w-11 text-on-surface" title="Back to Bookmarks">
 <span class="material-symbols-outlined filled-icon text-primary text-2xl">star</span>
-<span class="text-on-surface font-label-md text-label-md">Favorites</span>
 </button>
 </div>
 </div>
@@ -28,19 +26,26 @@ New Bookmark
 <main class="flex-grow max-w-container-max-width mx-auto w-full px-margin-mobile md:px-margin-desktop py-10">
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter" id="bookmark-grid">
 @foreach(BookmarkItem bookmark in Model) {
-<article class="bookmark-card group relative flex flex-col bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+<article class="bookmark-card group relative flex flex-col bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(53,37,205,0.15)] dark:hover:shadow-[0_8px_30px_rgba(184,197,255,0.1)] hover:border-primary/30 transition-all duration-300">
 <div class="p-5 flex flex-col flex-grow">
 <div class="flex justify-between items-start mb-2">
 <span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container rounded font-label-sm text-label-sm">@bookmark.Category</span>
-<button class="favorite-toggle hover:scale-110 transition-transform">
+<div class="flex items-center gap-2 relative z-10">
+<button class="favorite-toggle hover:scale-110 transition-transform flex items-center justify-center h-8 w-8">
 
 @if (bookmark.Favorite)
 {
 <span class="material-symbols-outlined filled-icon text-primary">star</span>
 }
 </button>
+<button onclick="deleteBookmark(@bookmark.Id, this)" class="text-on-surface-variant hover:text-error transition-colors hover:scale-110 transition-transform flex items-center justify-center h-8 w-8" title="Delete">
+<span class="material-symbols-outlined">delete</span>
+</button>
 </div>
-<a href="@bookmark.Url"><h3 class="font-headline-sm text-headline-sm text-on-surface mb-1 group-hover:text-primary transition-colors">@bookmark.Title</h3></a>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1 group-hover:text-primary transition-colors">
+<a href="@bookmark.Url" target="_blank" rel="noopener noreferrer" class="after:absolute after:inset-0 after:z-0">@bookmark.Title</a>
+</h3>
 <p class="text-on-surface-variant text-body-sm font-body-sm line-clamp-2">@bookmark.Description</p>
 </div>
 </article>
@@ -51,4 +56,34 @@ New Bookmark
 
 
 </main>
+
+@section Scripts {
+<script>
+async function deleteBookmark(id, button) {
+    if (confirm("Are you sure you want to delete this bookmark?")) {
+        try {
+            const response = await fetch(`/Bookmark/Delete/${id}`, {
+                method: 'DELETE'
+            });
+            if (response.ok) {
+                const card = button.closest('.bookmark-card');
+                card.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                card.style.opacity = '0';
+                card.style.transform = 'scale(0.9) translateY(20px)';
+                setTimeout(() => {
+                    card.remove();
+                }, 500);
+            } else {
+                alert("Failed to delete bookmark.");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred while deleting.");
+        }
+    }
+}
+
+
+</script>
+}
 </body>

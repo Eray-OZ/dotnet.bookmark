@@ -1,54 +1,186 @@
+
 @model List<Bookmark.Models.BookmarkItem>
 
 
 
 
-
 <body class="dark bg-background text-on-surface font-body-md antialiased min-h-screen flex flex-col">
-<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-6">
+<div class="flex items-center gap-6 px-margin-mobile md:px-margin-desktop pt-16 pb-6">
 <h1 class="font-headline-lg text-headline-lg text-on-surface">Bookmarks</h1>
-<div class="flex items-center gap-8">
-<button onclick="window.location.href='/Bookmark/Add'" class="bg-primary text-on-primary px-6 py-2.5 rounded-xl font-label-md text-label-md hover:shadow-lg active:scale-95 transform transition-all duration-150 flex items-center gap-2">
-<span class="material-symbols-outlined">add</span>
-New Bookmark
+<div class="flex items-center gap-4">
+<button onclick="window.location.href='/Bookmark/Add'" class="bg-primary text-on-primary h-11 w-11 rounded-xl hover:shadow-lg active:scale-95 transform transition-all duration-150 flex items-center justify-center" title="New Bookmark">
+<span class="material-symbols-outlined text-2xl">add</span>
 </button>
-<button onclick="window.location.href='/Bookmark/Favorites'" class="hover:scale-125 transition-transform flex items-center gap-2" title="Favorites">
+<button onclick="window.location.href='/Bookmark/Favorites'" class="hover:scale-110 hover:bg-surface-container active:scale-95 transition-all rounded-xl flex items-center justify-center h-11 w-11 text-on-surface" title="Favorites">
 <span class="material-symbols-outlined text-outline text-2xl">star</span>
-<span class="text-on-surface font-label-md text-label-md">Favorites</span>
 </button>
 </div>
 </div>
 
+
+
+
+
+<!-- Filters -->
+<div class="flex flex-wrap items-center gap-3 px-margin-mobile md:px-margin-desktop mb-6">
+<button data-category="general" onclick="fetchItems('general')" class="px-5 py-2 rounded-full bg-primary text-on-primary font-label-md transition-all">General</button>
+<button data-category="design" onclick="fetchItems('design')" class="px-5 py-2 rounded-full bg-surface-container-low border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary font-label-md transition-all">Design</button>
+<button data-category="technology" onclick="fetchItems('technology')" class="px-5 py-2 rounded-full bg-surface-container-low border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary font-label-md transition-all">Technology</button>
+<button data-category="reading" onclick="fetchItems('reading')" class="px-5 py-2 rounded-full bg-surface-container-low border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary font-label-md transition-all">Reading List</button>
+<button data-category="work" onclick="fetchItems('work')" class="px-5 py-2 rounded-full bg-surface-container-low border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary font-label-md transition-all">Work</button>
+</div>
 
 
 
 
 <!-- Cards -->
 <main class="flex-grow max-w-container-max-width mx-auto w-full px-margin-mobile md:px-margin-desktop py-10">
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter" id="bookmark-grid">
-@foreach(BookmarkItem bookmark in Model) {
-<article class="bookmark-card group relative flex flex-col bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300">
-
-<div class="p-5 flex flex-col flex-grow">
-<div class="flex justify-between items-start mb-2">
-<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container rounded font-label-sm text-label-sm">@bookmark.Category</span>
-<button class="favorite-toggle hover:scale-110 transition-transform">
-
-@if (bookmark.Favorite)
-{
-<span class="material-symbols-outlined filled-icon text-primary">star</span>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter" id="bookmark-grid" style="display: grid !important;">
+@{
+    var items = (List<Bookmark.Models.BookmarkItem>)(ViewData.Model ?? new List<Bookmark.Models.BookmarkItem>());
+    if (items != null && items.Any())
+    {
+        @foreach(var item in items) {
+        <article class="bookmark-card group relative flex flex-col bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(53,37,205,0.15)] dark:hover:shadow-[0_8px_30px_rgba(184,197,255,0.1)] hover:border-primary/30 transition-all duration-300" data-id="@item.Id">
+            <div class="p-5 flex flex-col flex-grow">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container rounded font-label-sm text-label-sm">@item.Category</span>
+                    <div class="flex items-center gap-2 relative z-10">
+                        <button class="favorite-toggle hover:scale-110 transition-transform flex items-center justify-center h-8 w-8">
+                            @if (item.Favorite)
+                            {
+                                <span class="material-symbols-outlined filled-icon text-primary">star</span>
+                            }
+                            else
+                            {
+                                <span class="material-symbols-outlined text-outline">star</span>
+                            }
+                        </button>
+                        <button class="delete-btn text-on-surface-variant hover:text-error transition-colors hover:scale-110 transition-transform flex items-center justify-center h-8 w-8" 
+                                data-id="@item.Id" title="Delete">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    </div>
+                </div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface mb-1 group-hover:text-primary transition-colors">
+                    <a href="@item.Url" target="_blank" rel="noopener noreferrer" class="after:absolute after:inset-0 after:z-0">@item.Title</a>
+                </h3>
+                <p class="text-on-surface-variant text-body-sm font-body-sm line-clamp-2">@item.Description</p>
+            </div>
+        </article>
+        }
+    }
 }
-</button>
 </div>
-<a href="@bookmark.Url"><h3 class="font-headline-sm text-headline-sm text-on-surface mb-1 group-hover:text-primary transition-colors">@bookmark.Title</h3></a>
-<p class="text-on-surface-variant text-body-sm font-body-sm line-clamp-2">@bookmark.Description</p>
-</div>
-</article>
-}
-
-
-
-
-
 </main>
+
+@section Scripts {
+<script>
+async function deleteBookmark(id, button) {
+    if (confirm("Are you sure you want to delete this bookmark?")) {
+        try {
+            const response = await fetch(`/Bookmark/Delete/${id}`, {
+                method: 'DELETE'
+            });
+            if (response.ok) {
+                const card = button.closest('.bookmark-card');
+                card.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                card.style.opacity = '0';
+                card.style.transform = 'scale(0.9) translateY(20px)';
+                setTimeout(() => {
+                    card.remove();
+                }, 500);
+            } else {
+                alert("Failed to delete bookmark.");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred while deleting.");
+        }
+    }
+}
+
+
+
+async function fetchItems(category) {
+    try {
+        const filterButtons = document.querySelectorAll('button[data-category]');
+        filterButtons.forEach(btn => {
+            if (btn.getAttribute('data-category') === category) {
+                btn.className = "px-5 py-2 rounded-full bg-primary text-on-primary font-label-md transition-all";
+            } else {
+                btn.className = "px-5 py-2 rounded-full bg-surface-container-low border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary font-label-md transition-all";
+            }
+        });
+
+        const response = await fetch(`/Bookmark/Fetch?category=${category}`, { 
+            method: 'GET' 
+        });
+
+        if (!response.ok) throw new Error('Data not found');
+
+        const data = await response.json();
+        console.log(data);
+        let html = '';
+
+        if (data && data.length > 0) {
+            data.forEach(item => {
+                const favoriteIcon = item.favorite 
+                    ? `<span class="material-symbols-outlined filled-icon text-primary">star</span>` 
+                    : `<span class="material-symbols-outlined text-outline">star</span>`;
+
+                html += `
+                    <article class="bookmark-card group relative flex flex-col bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(53,37,205,0.15)] dark:hover:shadow-[0_8px_30px_rgba(184,197,255,0.1)] hover:border-primary/30 transition-all duration-300" data-id="${item.id}">
+                        <div class="p-5 flex flex-col flex-grow">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container rounded font-label-sm text-label-sm">${item.category}</span>
+                                <div class="flex items-center gap-2 relative z-10">
+                                    <button class="favorite-toggle hover:scale-110 transition-transform flex items-center justify-center h-8 w-8">
+                                        ${favoriteIcon}
+                                    </button>
+                                    <button class="delete-btn text-on-surface-variant hover:text-error transition-colors hover:scale-110 transition-transform flex items-center justify-center h-8 w-8" 
+                                            data-id="${item.id}" title="Delete">
+                                        <span class="material-symbols-outlined">delete</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <h3 class="font-headline-sm text-headline-sm text-on-surface mb-1 group-hover:text-primary transition-colors">
+                                <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="after:absolute after:inset-0 after:z-0">${item.title}</a>
+                            </h3>
+                            <p class="text-on-surface-variant text-body-sm font-body-sm line-clamp-2">${item.description || ''}</p>
+                        </div>
+                    </article>`;
+            });
+        } else {
+            html = '<div class="col-span-full text-center py-10 text-on-surface-variant">No bookmark</div>';
+        }
+
+        document.getElementById('bookmark-grid').innerHTML = html;
+
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+}
+
+document.addEventListener('click', function (e) {
+    if (e.target.closest('.delete-btn')) {
+        const btn = e.target.closest('.delete-btn');
+        const id = btn.getAttribute('data-id');
+
+        if (!id) {
+            console.error("ID not found!");
+            return;
+        }
+
+        deleteBookmark(id, btn);
+    }
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    fetchItems("general");
+});
+
+</script>
+}
 </body>

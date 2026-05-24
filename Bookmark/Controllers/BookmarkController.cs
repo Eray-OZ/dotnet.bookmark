@@ -21,13 +21,30 @@ namespace Bookmark.Controllers
         _context = context;
     }
 
+
     [HttpGet]
     public async Task<IActionResult> List()
+        {
+            var initialBookmarks = await _context.BookmarkItems
+                .AsNoTracking()
+                .Where(b => b.Category == "general")
+                .OrderByDescending(b => b.CreatedAt)
+                .ToListAsync();
+            
+            return View(initialBookmarks);
+        }
+
+
+    [HttpGet]
+    public async Task<IActionResult> Fetch(string category)
     {
         var bookmarks = await _context.BookmarkItems
-        .OrderByDescending(b => b.CreatedAt)
-        .ToListAsync();
-        return View(bookmarks);
+            .AsNoTracking()
+            .Where(b => string.IsNullOrEmpty(category) || category == "general" || b.Category == category)
+            .OrderByDescending(b => b.CreatedAt)
+            .ToListAsync();
+
+        return Ok(bookmarks);
     }
 
 
@@ -37,8 +54,10 @@ namespace Bookmark.Controllers
     public async Task<IActionResult> Favorites()
         {
             var favoriteBookmarks = await _context.BookmarkItems
-            .Where(b => b.Favorite)
-            .ToListAsync();
+                .AsNoTracking()
+                .Where(b => b.Favorite)
+                .OrderByDescending(b => b.CreatedAt)
+                .ToListAsync();
 
             return View(favoriteBookmarks);
         }
@@ -62,6 +81,28 @@ namespace Bookmark.Controllers
 
         return RedirectToAction("List");
     }
+
+
+
+    [HttpDelete]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var bookmark = await _context.BookmarkItems.FindAsync(id);
+
+        if(bookmark == null)
+        {
+            return NotFound();
+        }
+
+        _context.BookmarkItems.Remove(bookmark);
+        await _context.SaveChangesAsync();
+
+        return Ok();
+    }
+
+
+
+
 }
 
 
